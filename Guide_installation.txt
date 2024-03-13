@@ -1,0 +1,6 @@
+1. Url admin pour creer un admin au demarrage du projet et partir au niveau de MySql
+   puis modifier le usertype par "ADMIN_ROLE": http://127.0.0.1:8000/admin 
+
+2. Url admin et chauffeur: http://127.0.0.1:8000/
+
+3. Url client: http://127.0.0.1:8000/voyageur
