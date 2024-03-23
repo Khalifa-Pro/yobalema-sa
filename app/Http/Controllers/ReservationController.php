@@ -47,7 +47,7 @@ class ReservationController extends Controller
         // Mettre à jour le nombre de places disponibles du véhicule
         Vehicule::where('id_vehicule', $requete->id_vehicule)->update(['nb_place' => DB::raw('nb_place - 1')]);
     
-        return redirect('/home');
+        return redirect('/home')->with('status', 'Réservation réussie!');;;
     }
 
 }

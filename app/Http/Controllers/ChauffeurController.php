@@ -4,8 +4,10 @@ namespace App\Http\Controllers;
 
 use auth;
 use App\Models\User;
+use App\Models\Alert;
 use Illuminate\View\View;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 use Illuminate\Validation\Rules;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
@@ -27,26 +29,6 @@ class ChauffeurController extends Controller
     public function creer(){
         return view('admin.gestion_chauffeurs.creer');
     }
-
-    // public function notification(){
-    //     $details = $this->notif();
-    //     return view('chauffeur.chauffeurDashboard',['details' => $details]);
-    // }
-
-    // public function notif(){
-    //     $user = auth()->user();
-
-    //     // Vérifier si l'utilisateur est un chauffeur
-    //     if ($user->usertype === 'CHAUFFEUR_ROLE') {
-    //         // Récupérer les détails de l'utilisateur connecté et du véhicule qu'il conduit
-    //        return DB::table('conduires')
-    //                     ->join('vehicules', 'conduires.id_vehicule', '=', 'vehicules.id_vehicule')
-    //                     ->where('conduires.id_chauffeur', $user->id)
-    //                     ->select('*')
-    //                     ->first();
-    //     }
-    //     return null;
-    // }
 
     /**
      * Handle an incoming registration request.
@@ -87,6 +69,96 @@ class ChauffeurController extends Controller
 
         //Auth::login($user);
 
-        return redirect()->route('admin.espaceChauffeur');
+        return redirect()->route('admin.espaceChauffeur')->with('status', 'Chauffeur ajouté avec succès!');;;
     }
+
+    /**
+     * Crée une nouvelle alerte.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+        public function alerter(Request $request)
+        {
+            // Valider les données du formulaire
+            $request->validate([
+                'message' => 'required|string',
+                'id_chauffeur' => 'required'
+            ]);
+
+            $alerte = new Alert();
+            $alerte->id_chauffeur = auth()->id();
+            $alerte->message = $request->message;
+            $alerte->save();
+
+            return redirect()->back()->with('success', 'Alerte soumise avec succès');
+        }
+
+        public function listeAlerts()
+        {
+            $liste = DB::table('users')
+                ->join('alerts', 'users.id', '=', 'alerts.id_chauffeur')
+                ->where('users.usertype', 'CHAUFFEUR_ROLE')
+                ->select('*')
+                ->get();
+            return view('admin.listeAlert',['liste' => $liste]);
+        }
+
+        public function nombreAlert()
+        {
+            $nombre = DB::table('alerts')
+                ->select(DB::raw('count(distinct *) as count'))
+                ->first();
+            return view('admin.content', ['nombre' => $nombre->count]);
+        }
+
+        public function modifier($id)
+        {
+            $user = User::find($id);
+            return view('admin.gestion_chauffeurs.modifier', ['user' => $user]);
+        }
+
+        public function update(Request $request, $id): RedirectResponse
+        {
+            $user = User::findOrFail($id);
+
+            $request->validate([
+                'firstName' => ['required', 'string', 'max:255'],
+                'lastName' => ['required', 'string', 'max:255'],
+                'experience' => ['required', 'integer'],
+                'numero_permis' => ['required', 'string', 'max:255'],
+                'address' => ['required', 'string', 'max:255'],
+                'telephone' => ['required', 'string', 'max:255'],
+                'date_emission' => ['required', 'integer'],
+                'date_expiration' => ['required', 'integer'],
+                'categorie' => ['required', 'string', 'max:50'],
+                'email' => ['required', 'string', 'email', 'max:255', Rule::unique('users')->ignore($user->id)],
+                'password' => ['required', 'string', 'confirmed'],
+            ]);
+
+            $user->update([
+                'firstName' => $request->firstName,
+                'lastName' => $request->lastName,
+                'experience' => $request->experience,
+                'numero_permis' => $request->numero_permis,
+                'address' => $request->address,
+                'telephone' => $request->telephone,
+                'date_emission' => $request->date_emission,
+                'date_expiration' => $request->date_expiration,
+                'categorie' => $request->categorie,
+                'email' => $request->email,
+                'password' => Hash::make($request->password)
+            ]);
+
+            return redirect()->route('admin.espaceChauffeur')->with('status', 'Chauffeur modifié avec succès!');;;
+        }
+
+    
+    public function supprimer($id)
+    {
+        $chauffeur = User::find($id);
+        $chauffeur->delete();
+        return redirect()->route('admin.espaceChauffeur')->with('status', 'Candidat supprimé avec succès!');
+    }
+
 }

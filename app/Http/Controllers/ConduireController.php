@@ -62,9 +62,23 @@ class ConduireController extends Controller
                 ->join('conduires', 'users.id', '=', 'conduires.id_chauffeur')
                 ->join('vehicules', 'conduires.id_vehicule', '=', 'vehicules.id_vehicule')
                 ->where('users.usertype', 'CHAUFFEUR_ROLE')
-                ->select('users.firstName', 'users.lastName', 'users.telephone','users.address','vehicules.marque')
+                ->select('*')
                 ->get();
         return view('admin.gestion_conduites.conducteurs',['liste' => $liste]);
         
+    }
+
+    public function supprimer($id)
+    {
+        $conduite = Conduire::find($id);
+        
+        if (!$conduite) {
+            // Si aucun enregistrement n'est trouvé avec cet identifiant, rediriger avec un message d'erreur ou autre traitement
+            return redirect()->back()->with('error', 'Conduite non trouvé.');
+        }
+    
+        $conduite->delete();
+    
+        return redirect()->route('admin.espaceConducteur')->with('success', 'Conduite supprimé avec succès.');
     }
 }

@@ -37,6 +37,30 @@
         <title></title>
     </head>
     <body class="sb-nav-fixed">
-       @include('admin.gestion_conduites.conducteurs');
+       @include('layouts.nav')
+   <main style="margin-left: 0px; margin-top: 90px">
+   <br>
+  <div class="container-fluid px-4">
+      <div class="card mb-4">
+           <div class="card-header bg-dark">
+               <i class="fas fa-table me-1 bg-light"></i>
+               <span style="color:aliceblue">Liste des alertes</span>
+           </div>
+          <div class="card-body">
+            @foreach ($liste as $alert)
+            <div class="alert alert-success" role="alert">
+                <h4 class="alert-heading">{{$alert->firstName}} {{$alert->lastName}}</h4>
+                <p>{{$alert->message}}</p>
+                <hr>
+                <h3 class="mb-0">{{$alert->telephone}}</3>
+                <hr>
+                <h4>{{$alert->created_at}}</h4>
+            </div>
+            @endforeach
+          </div>
+      </div>
+  </div>
+</main>
+       @include('layouts.footer');
     </body>
 </html>

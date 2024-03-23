@@ -25,11 +25,18 @@ class AuthenticatedSessionController extends Controller
      */
     public function store(LoginRequest $request): RedirectResponse
     {
+        // Indiquer que le chargement est en cours
+        session()->put('loading', true);
+
         $request->authenticate();
 
         $request->session()->regenerate();
 
+        // Supprimer l'indicateur de chargement une fois le traitement terminé
+        session()->forget('loading');
+
         return redirect()->intended(RouteServiceProvider::HOME);
+
     }
 
     /**

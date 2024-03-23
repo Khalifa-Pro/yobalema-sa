@@ -96,7 +96,7 @@
                                        <button class="btn btn-outline-info"><i style="width: 10px;height: 10px;" class="fas fa-edit"></i></button>
                                    </a>
                                    {{-- <a style="text-decoration: none" href="{{ route('supprimer.candidat',['id' => $candidat->id_candidat])}}"> --}}
-                                   <a style="text-decoration: none" href="#">
+                                   <a style="text-decoration: none" href=" {{route('admin.supprimerVoyage',['id' => $location->id_location])}} ">
                                       <button class="btn btn-outline-danger"><i class="fa-solid fa-trash" style="width: 10px;height: 10px;"></i></button>
                                    </a>
                           </td>

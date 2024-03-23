@@ -94,7 +94,7 @@
             </style>
             {{-- <img width="200" src="../build/assets/images/vehicules/{{$info->photo}}" alt="vehicule"> --}}
             <img style="width: 400px;height: 300px; box-shadow: 1px 1px 1px 5px rgb(255, 255, 255);" src="../build/assets/images/vehicules/{{$info->photo}}" alt="image">
-            <div style="width: 300px; height: 170px;box-shadow: 1px 1px 1px 5px rgb(255, 255, 255); background-color: aliceblue; text-align: center;font-weight: bold;font-size: 15px">
+            <div style="width: 400px; height: 170px;box-shadow: 1px 1px 1px 5px rgb(255, 255, 255); background-color: aliceblue; text-align: center;font-weight: bold;font-size: 15px">
                <div>
                   {{$info->marque}}
                </div>

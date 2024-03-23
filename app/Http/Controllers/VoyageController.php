@@ -44,4 +44,19 @@ class VoyageController extends Controller
     
         return redirect()->route('customer.customer');
     }
+
+    public function supprimer($id)
+{
+    $voyage = Louer::find($id);
+
+    if (!$voyage) {
+        // Si aucun enregistrement n'est trouvé avec cet identifiant, rediriger avec un message d'erreur ou autre traitement
+        return redirect()->back()->with('error', 'Voyage non trouvé.');
+    }
+
+    $voyage->delete();
+
+    return redirect()->route('voyageur.liste')->with('success', 'Voyage supprimé avec succès.');
+}
+
 }

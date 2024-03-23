@@ -69,8 +69,6 @@
                                 </div>
                                 <div class="modal-footer">
                                 <button class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                <button class="btn btn-success">Accepter</button>
-                                <button class="btn btn-danger">Rejeter</button>
                                 </div>
                             </div>
                             </div>
@@ -140,14 +138,17 @@
                 <button class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <form action="">
+                    <form action="{{ route('soumettre.alerte') }}" method="POST">
+                        @csrf <!-- Ajoutez ceci pour la protection CSRF -->
                         <div class="form-floating">
-                            <textarea rows="50" class="form-control" placeholder="Leave a comment here" id="floatingTextarea"></textarea>
+                            <textarea rows="50" class="form-control" placeholder="Leave a comment here" id="floatingTextarea" name="message"></textarea>
                             <br>
                             <label for="floatingTextarea">Laisser un message d'alerte svp</label>
+                            <!-- Champ caché pour l'ID du chauffeur, sa valeur sera automatiquement renseignée côté serveur -->
+                            <input hidden type="number" name="id_chauffeur" value="{{ auth()->id() }}" placeholder="{{ auth()->id() }}">
                         </div>
                         <button class="btn btn-success" style="background-color: forestgreen;color:white" type="submit" data-bs-dismiss="modal">Soumettre</button>
-                    </form>
+                    </form>                    
                 </div>
                 <div class="modal-footer">
                 <button class="btn btn-danger" data-bs-dismiss="modal">Close</button>

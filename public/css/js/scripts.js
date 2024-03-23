@@ -7,6 +7,13 @@
 // Scripts
 // 
 
+// Pour afficher le loader
+document.querySelector('.loader').style.display = 'block';
+
+// Pour masquer le loader
+document.querySelector('.loader').style.display = 'none';
+
+
 window.addEventListener('DOMContentLoaded', event => {
 
     // Toggle the side navigation

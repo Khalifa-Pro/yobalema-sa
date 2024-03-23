@@ -61,11 +61,11 @@
                            <td> {{ $chauffeur->categorie}} </td>
                            <td>
                                {{-- <a style="text-decoration: none" href="{{ route('modifier.candidat',['id' => $candidat->id_candidat])}}"> --}}
-                               <a style="text-decoration: none" href="#">
+                               <a style="text-decoration: none" href=" {{route('modifier.chauffeur',['id' => $chauffeur->id])}} ">
                                    <button class="btn btn-outline-info"><i style="width: 10px;height: 10px;" class="fas fa-edit"></i></button>
                                </a>
                                {{-- <a style="text-decoration: none" href="{{ route('supprimer.candidat',['id' => $candidat->id_candidat])}}"> --}}
-                               <a style="text-decoration: none" href="#">
+                               <a style="text-decoration: none" href=" {{route('admin.supprimerChauffeur',['id' => $chauffeur->id])}} ">
                                   <button class="btn btn-outline-danger"><i class="fa-solid fa-trash" style="width: 10px;height: 10px;"></i></button>
                                </a>
                                
