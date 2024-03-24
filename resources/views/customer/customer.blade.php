@@ -48,7 +48,18 @@
            </div>
          </div>
        </nav>
-    <div class="container" style="margin-top: 150px; ">
+
+       <section style="background-color: black; text-align: center; height: 250px;">
+         <h1 style="color: white; margin-top: 80px;padding-top: 30px">YOBBALEMA</h1>
+         <br>
+         <h3 style="color: rgb(202, 202, 202)">Vous pouvez vous déplacer partout ou vous etes</h3>
+         <br>
+         <marquee behavior="" direction="left">
+           <h4 style="color: rgb(255, 234, 0);font-weight: bold;">Yombu Gaaw Waurrr</h4>
+         </marquee>
+       </section>
+
+    <div class="container" style="margin-top: 50px; ">
       @foreach ($liste as $info)
        <!-- Button trigger modal -->
        @if ($info->nb_place == 0)
