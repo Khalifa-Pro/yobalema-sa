@@ -33,27 +33,21 @@ class ConduireController extends Controller
             'id_vehicule' => 'required',
         ]);
     
-        // Récupérer la liste des conducteurs et des chauffeurs
-        $conducteurs = $this->liste();
-        $chauffeurs = $this->listeChauffeur();
-        
-        // Parcourir chaque conducteur et chaque chauffeur pour vérifier s'ils correspondent
-        foreach ($conducteurs as $conducteur) {
-            foreach ($chauffeurs as $chauffeur) {
-                if ($conducteur->id_chauffeur == $request->id_chauffeur && $chauffeur->id == $request->id_chauffeur) {
-                    // Si le chauffeur existe déjà dans la liste des conducteurs, retourner une réponse appropriée
-                    return redirect()->back()->with('error', 'Le chauffeur spécifié existe déjà dans la liste des conducteurs.');
-                }
-            }
+        // Vérifier si le chauffeur est déjà associé à une conduite
+        $existConduite = Conduire::where('id_chauffeur', $request->id_chauffeur)->exists();
+        if ($existConduite) {
+            return redirect()->back()->with('error', 'Ce chauffeur est déjà associé à une conduite.');
         }
         
-        // Si le chauffeur n'existe pas dans la liste des conducteurs, enregistrer la conduite
+        // Si le chauffeur n'est pas déjà associé à une conduite, enregistrer la nouvelle conduite
         Conduire::create([
             'id_chauffeur' => $request->id_chauffeur,
             'id_vehicule' => $request->id_vehicule,
         ]);
+        
         return redirect()->route('admin.espaceConducteur');
     }
+    
     
     
 

@@ -46,7 +46,7 @@ class ClientController extends Controller
         // Mettre à jour le nombre de places disponibles du véhicule
         Vehicule::where('id_vehicule', $requete->id_vehicule)->update(['nb_place' => DB::raw('nb_place - 1')]);
     
-        return redirect('/voyageur')->with('status', 'Réservation réussie!');;;
+        return redirect('/voyageur')->with('success','Réservation réussie!');
     }
 
 }

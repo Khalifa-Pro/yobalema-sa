@@ -46,18 +46,36 @@
                <i class="fas fa-table me-1 bg-light"></i>
                <span style="color:aliceblue">Liste des alertes</span>
            </div>
-          <div class="card-body">
-            @foreach ($liste as $alert)
-            <div class="alert alert-success" role="alert">
-                <h4 class="alert-heading">{{$alert->firstName}} {{$alert->lastName}}</h4>
-                <p>{{$alert->message}}</p>
-                <hr>
-                <h3 class="mb-0">{{$alert->telephone}}</3>
-                <hr>
-                <h4>{{$alert->created_at}}</h4>
-            </div>
-            @endforeach
-          </div>
+
+
+           <table id="datatablesSimple">
+            <thead>
+                <tr>
+                 <th>MESSAGE(S)</th>
+                </tr>
+            </thead>
+            <tfoot>
+                <tr>
+                    <th>MESSAGE(S)</th>
+                </tr>
+            </tfoot>
+            <tbody>
+                @foreach ($liste as $alert)
+                <tr>
+                    <td>
+                        <div class="alert alert-success" role="alert">
+                            <h4 class="alert-heading">{{$alert->firstName}} {{$alert->lastName}}</h4>
+                            <p>{{$alert->message}}</p>
+                            <hr>
+                            <h3 class="mb-0">{{$alert->telephone}}</3>
+                            <hr>
+                            <h4>{{$alert->created_at}}</h4>
+                        </div>
+                    </td>
+                </tr>
+                @endforeach
+            </tbody>
+        </table>
       </div>
   </div>
 </main>

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use auth;
+use Carbon\Carbon;
 use App\Models\User;
 use App\Models\Alert;
 use Illuminate\View\View;
@@ -69,7 +70,7 @@ class ChauffeurController extends Controller
 
         //Auth::login($user);
 
-        return redirect()->route('admin.espaceChauffeur')->with('status', 'Chauffeur ajouté avec succès!');;;
+        return redirect()->route('admin.espaceChauffeur')->with('success', 'Chauffeur ajouté avec succès!');;;
     }
 
     /**
@@ -94,14 +95,29 @@ class ChauffeurController extends Controller
             return redirect()->back()->with('success', 'Alerte soumise avec succès');
         }
 
+        // public function listeAlerts()
+        // {
+        //     $liste = DB::table('users')
+        //         ->join('alerts', 'users.id', '=', 'alerts.id_chauffeur')
+        //         ->where('users.usertype', 'CHAUFFEUR_ROLE')
+        //         ->select('*')
+        //         ->get();
+        //     return view('admin.listeAlert',['liste' => $liste]);
+        // }
+
         public function listeAlerts()
         {
+            $now = Carbon::now();
+            $thresholdDate = $now->subHours(72);
+
             $liste = DB::table('users')
                 ->join('alerts', 'users.id', '=', 'alerts.id_chauffeur')
                 ->where('users.usertype', 'CHAUFFEUR_ROLE')
+                ->whereDate('alerts.created_at', '>=', $thresholdDate)
                 ->select('*')
                 ->get();
-            return view('admin.listeAlert',['liste' => $liste]);
+
+            return view('admin.listeAlert', ['liste' => $liste]);
         }
 
         public function nombreAlert()
@@ -150,7 +166,7 @@ class ChauffeurController extends Controller
                 'password' => Hash::make($request->password)
             ]);
 
-            return redirect()->route('admin.espaceChauffeur')->with('status', 'Chauffeur modifié avec succès!');;;
+            return redirect()->route('admin.espaceChauffeur')->with('success', 'Chauffeur modifié avec succès!');
         }
 
     
@@ -158,7 +174,7 @@ class ChauffeurController extends Controller
     {
         $chauffeur = User::find($id);
         $chauffeur->delete();
-        return redirect()->route('admin.espaceChauffeur')->with('status', 'Candidat supprimé avec succès!');
+        return redirect()->route('admin.espaceChauffeur')->with('success', 'Candidat supprimé avec succès!');
     }
 
 }

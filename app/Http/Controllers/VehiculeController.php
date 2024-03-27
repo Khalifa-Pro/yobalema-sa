@@ -50,7 +50,7 @@ class VehiculeController extends Controller
             'nb_place' => $requete->nb_place,
         ]);
 
-        return redirect()->route('admin.espaceVehicule')->with('status', 'Véhicule enregistré avec succès!');
+        return redirect()->route('admin.espaceVehicule')->with('success', 'Véhicule enregistré avec succès!');
     }
 
     public function modifier($id)
@@ -94,14 +94,14 @@ class VehiculeController extends Controller
             'nb_place' => $requete->nb_place,
         ]);
         
-        return redirect()->route('admin.espaceVehicule')->with('status', 'Véhicule modifié avec succès!');
+        return redirect()->route('admin.espaceVehicule')->with('success', 'Véhicule modifié avec succès!');
     }
 
     public function supprimer($id)
     {
         $vehicule = Vehicule::find($id);
         $vehicule->delete();
-        return redirect()->route('admin.espaceChauffeur')->with('status', 'Véhicule supprimé avec succès!');
+        return redirect()->route('admin.espaceChauffeur')->with('success', 'Véhicule supprimé avec succès!');
     }
 
 }

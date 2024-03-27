@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Navbar Example</title>
+  <title>Yobbalema-sa</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
@@ -27,9 +27,6 @@
              <div class="offcanvas-body">
                <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
                  <li class="nav-item">
-                   <a class="nav-link active" aria-current="page" href="#">Louer</a>
-                 </li>
-                 <li class="nav-item">
                    <a class="nav-link" href="#">Contact</a>
                  </li>
                  <li class="nav-item dropdown">
@@ -52,7 +49,7 @@
        <section style="background-color: black; text-align: center; height: 250px;">
          <h1 style="color: white; margin-top: 80px;padding-top: 30px">YOBBALEMA</h1>
          <br>
-         <h3 style="color: rgb(202, 202, 202)">Vous pouvez vous déplacer partout ou vous etes</h3>
+         <h3 style="color: rgb(202, 202, 202)">Où que vous soyez, allez où vous voulez</h3>
          <br>
          <marquee behavior="" direction="left">
            <h4 style="color: rgb(255, 234, 0);font-weight: bold;">Yombu Gaaw Waurrr</h4>

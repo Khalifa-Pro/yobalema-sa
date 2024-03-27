@@ -42,21 +42,21 @@ class VoyageController extends Controller
         // Mettre à jour le nombre de places disponibles du véhicule
         Vehicule::where('id_vehicule', $requete->id_vehicule)->update(['nb_place' => DB::raw('nb_place - 1')]);
     
-        return redirect()->route('customer.customer');
+        return redirect()->route('customer.customer')->with('success', 'Réservation réussie!');
     }
 
     public function supprimer($id)
-{
-    $voyage = Louer::find($id);
+    {
+        $voyage = Louer::find($id);
 
-    if (!$voyage) {
-        // Si aucun enregistrement n'est trouvé avec cet identifiant, rediriger avec un message d'erreur ou autre traitement
-        return redirect()->back()->with('error', 'Voyage non trouvé.');
+        if (!$voyage) {
+            // Si aucun enregistrement n'est trouvé avec cet identifiant, rediriger avec un message d'erreur ou autre traitement
+            return redirect()->back()->with('error', 'Voyage non trouvé.');
+        }
+
+        $voyage->delete();
+
+        return redirect()->route('voyageur.liste')->with('success', 'Voyage supprimé avec succès.');
     }
-
-    $voyage->delete();
-
-    return redirect()->route('voyageur.liste')->with('success', 'Voyage supprimé avec succès.');
-}
 
 }
